@@ -12,9 +12,8 @@ import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Display;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.ball.velX = this.ball.velX + this.ball.accX;
         this.ball.velY = this.ball.velY + this.ball.accY;
 
+        //speed limiting for better response
         if(this.ball.velX > 15){
             this.ball.velX = 15;
         }

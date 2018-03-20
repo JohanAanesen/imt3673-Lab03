@@ -10,10 +10,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.Window;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
@@ -110,15 +110,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void init() {
 
         FrameLayout frameLayoutBalance = (FrameLayout)findViewById(R.id.framey);
-        frameLayoutBalance.setBackgroundColor(getResources().getColor(R.color.black));
+        frameLayoutBalance.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
 
         Point size = new Point();
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(size);
 
-        int offset = dpToPx(25);
+        int offset = dpToPx(30);
 
-        this.ball = new Ball(findViewById(R.id.ball), size.x - offset, size.y - offset);
+        this.ball = new Ball(findViewById(R.id.ball), size.x - offset, size.y - getNavHeight() - dpToPx(18));
 
 
 
@@ -128,17 +128,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        //this.mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.bop);
+        this.mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.pop);
     }
 
     public void collision() {
-        this.vibrator.vibrate(350);
-        //this.mediaPlayer.start();
+        this.mediaPlayer.start();
+        this.vibrator.vibrate(100);
     }
 
     public static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public int getNavHeight(){
+        Resources resources = this.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        }
+        return 0;
     }
 
 }

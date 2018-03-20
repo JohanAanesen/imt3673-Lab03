@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
         init();
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        this.ball.accX = -(sensorEvent.values[0] / 6);
-        this.ball.accY = sensorEvent.values[1] / 6;
+        this.ball.accX = sensorEvent.values[1] / 6;
+        this.ball.accY = sensorEvent.values[0] / 6;
 
         this.ball.velX = this.ball.velX + this.ball.accX;
         this.ball.velY = this.ball.velY + this.ball.accY;

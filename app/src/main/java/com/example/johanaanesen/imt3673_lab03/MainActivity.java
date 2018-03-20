@@ -18,12 +18,9 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private Ball ball;
-
     private SensorManager sensorManager;
     private Sensor sensor;
-
     private Vibrator vibrator;
-
     private MediaPlayer mediaPlayer;
 
 
@@ -108,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void init() {
-
         FrameLayout frameLayoutBalance = (FrameLayout) findViewById(R.id.framey);
         frameLayoutBalance.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
 
@@ -119,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         int offset = dpToPx(30);
 
         this.ball = new Ball(findViewById(R.id.ball), size.x - offset, size.y - getNavHeight() - dpToPx(18));
-
 
         this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.sensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -134,10 +129,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.vibrator.vibrate(100);
     }
 
+    /**
+     * converts dp to px (may vary on different screens)
+     * @param dp int
+     * @return pixels
+     */
     public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    /**
+     * gets the height of the bottom nav bar
+     * @return pixels
+     */
     public int getNavHeight() {
         Resources resources = this.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");

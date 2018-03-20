@@ -16,7 +16,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener{
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private Ball ball;
 
     private SensorManager sensorManager;
@@ -51,30 +51,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        this.ball.accX = -(sensorEvent.values[0] / 7);
-        this.ball.accY = sensorEvent.values[1] / 7;
+        this.ball.accX = -(sensorEvent.values[0] / 6);
+        this.ball.accY = sensorEvent.values[1] / 6;
 
         this.ball.velX = this.ball.velX + this.ball.accX;
         this.ball.velY = this.ball.velY + this.ball.accY;
 
         //speed limiting for better response
-        if(this.ball.velX > 15){
+        if (this.ball.velX > 15) {
             this.ball.velX = 15;
         }
-        if(this.ball.velX < -15){
+        if (this.ball.velX < -15) {
             this.ball.velX = -15;
         }
-        if(this.ball.velY > 15){
+        if (this.ball.velY > 15) {
             this.ball.velY = 15;
         }
-        if(this.ball.velY < -15){
+        if (this.ball.velY < -15) {
             this.ball.velY = -15;
         }
 
         this.ball.posX = this.ball.posX + this.ball.velX;
         this.ball.posY = this.ball.posY + this.ball.velY;
 
-        if(this.ball.posX < 0) {
+        if (this.ball.posX < 0) {
             this.ball.posX = 0;
             this.ball.velX = -this.ball.velX * 0.8f;
             collision();
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             collision();
         }
 
-        if(this.ball.posY < 0) {
+        if (this.ball.posY < 0) {
             this.ball.posY = 0;
             this.ball.velY = -this.ball.velY * 0.8f;
             collision();
@@ -102,14 +102,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.ball.ball.setY(this.ball.posY);
     }
 
-        @Override
+    @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 
     public void init() {
 
-        FrameLayout frameLayoutBalance = (FrameLayout)findViewById(R.id.framey);
+        FrameLayout frameLayoutBalance = (FrameLayout) findViewById(R.id.framey);
         frameLayoutBalance.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
 
         Point size = new Point();
@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         int offset = dpToPx(30);
 
         this.ball = new Ball(findViewById(R.id.ball), size.x - offset, size.y - getNavHeight() - dpToPx(18));
-
-
 
 
         this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -136,12 +134,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.vibrator.vibrate(100);
     }
 
-    public static int dpToPx(int dp)
-    {
+    public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    public int getNavHeight(){
+    public int getNavHeight() {
         Resources resources = this.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {

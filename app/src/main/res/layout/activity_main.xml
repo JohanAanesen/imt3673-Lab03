@@ -4,8 +4,8 @@
     android:id="@+id/framey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.johanaanesen.imt3673_lab03.MainActivity"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    tools:context="com.example.johanaanesen.imt3673_lab03.MainActivity">
 
     <ImageView
         android:id="@+id/ball"
